@@ -1,12 +1,23 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt</title>
-</head>
-<body>
-    
-</body>
+<!doctype html>
+<html>
+     <head>
+         <title>Projekt</title>
+         <script lang="JavaScript">
+            function testfunction(form)
+            {
+                let test = form.inputbox.value;
+                let test2 = test + "!";
+                document.getElementById("mytext").value = test2;
+            }
+         </script>
+     </head>
+     <body>
+          <h1>Projekt1</h1>
+          <br><form name="myform" action="" method="get">
+            enter something in the box<br>
+            <input type="text" name="inputbox" value="">
+            <input type="button" name="button" value="click" onclick="testfunction(this.form)">
+          </form>
+          <textarea id="mytext"></textarea>
+     </body>
 </html>
