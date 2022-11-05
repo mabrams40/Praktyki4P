@@ -1,0 +1,57 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: #474ABA;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+}
+header{
+    background-color: #B0B3D6;
+    padding: 10px;
+    font-size: 38px;
+}
+nav{
+    background-color: #787CB5;
+}
+nav > ul > li{
+    display: inline-block;
+    padding: 10px;
+}
+nav > ul > li > a{
+    color: #CCC;;
+    text-decoration-line: none;
+    font-size: 26px;
+}
+nav > ul > li > a:hover{
+    color: black;
+}
+section{
+    overflow: hidden;
+    background-color: #B0B3D6;
+}
+article{   
+    margin: 10px;
+}
+h1, h2, p, form, article{
+    width: fit-content;
+}
+h1{
+    font-size: 36px;
+}
+h2{
+    font-size: 28px;
+}
+label{
+    font-size: 20px;
+    display: block;
+    width: fit-content;
+}
+input, select{
+    font-size: 20px;
+}
+footer{
+    background-color: #B0B3D6;
+    padding: 10px;
+    font-size: 20px;
+}
