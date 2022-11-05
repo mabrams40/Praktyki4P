@@ -46,6 +46,7 @@ label{
     font-size: 20px;
     display: block;
     width: fit-content;
+    margin-top: 10px;
 }
 input, select{
     font-size: 20px;
