@@ -8,44 +8,7 @@
     <meta name="keywords" content="Zadanie, HTML, CSS, JavaScript">
     <title>PHP Enjoyers</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script>
-        function tester(form)
-        {
-            let f = 0;
-            let dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-            let str = document.getElementById("firstname").value;
-            if(str.length < 3 || str > 15)
-            {
-                alert('Pole imie musi zawierać co najmniej 3 znaki i nie więcej, niż 15');
-                f++;
-            }
-
-            str = document.getElementById("lastname").value;
-            if(str.length < 3 || str > 15)
-            {
-                alert('Pole nazwisko musi zawierać co najmniej 3 znaki i nie więcej, niż 15');
-                f++;
-            }
-
-            if(inputText.value.match(dateformat))
-            {
-
-            }
-            else
-            {
-                alert('To nie jest data');
-                f++;
-            }
-            if(f!=0)
-            {
-                return false;
-            }
-            else
-            {
-                return true
-            }
-        }
-    </script>
+    <script type="text/javascript" src="walidacja.js"></script>
 </head>
 <body>
     <header>
@@ -60,21 +23,21 @@
     <section>
         <article>
             <h2>Aplikuj do naszej grupy już dziś!</h2>
-            <form method="get" onsubmit="tester(this)"><br>
+            <form>
                 <label for="firstname">Imię</label>
-                <input type="text" name="firstname" title="Musi zawierać tylko litery" placeholder="podaj imie"><br><br>
+                <input type="text" name="firstname" title="Musi zawierać tylko litery" placeholder="Podaj imię..">
                 <label for="lastname">Nazwisko</label>
-                <input type="text" name="lastname" title="Musi zawierać tylko litery" placeholder="podaj nazwisko"><br><br>
+                <input type="text" name="lastname" title="Musi zawierać tylko litery" placeholder="Podaj nazwisko..">
                 <label for="birthday">Data urodzenia</label>
-                <input type="date" name="birthday"><br><br>
+                <input type="date" name="birthday">
                 <label for="gender">Płeć</label>
                 <select name="gender">
                     <option name="man">Mężczyna</option>
                     <option name="woman">Kobieta</option>
                 </select>
                 <label for="favColor">Ulubiony kolor</label>
-                <input type="color" name="favColor"><br><br>
-                <input type="submit" value="Prześlij">
+                <input type="color" name="favColor">
+                <input type="button" value="Prześlij" onclick="validate(this.form)">
             </form>
         </article>
     </section>
