@@ -12,6 +12,11 @@ window.onload = () => {
     countryFlag.style.display = "none";
 }
 
+function numbersformat(num) 
+{
+    return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'))
+  }
+
 function getCountryData(){
     let countryNameInput = countrySearch.countryName.value;
     countrySearch.countryName.value = "";
@@ -46,12 +51,9 @@ function getCountryData(){
         };
 
 
-function currencyFormatDE(num) 
-{
-    return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'))
-  }
 
-  country.population = currencyFormatDE(country.population)
+  country.population = numbersformat(country.population)
+  country.area = numbersformat(country.area)
 
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
@@ -111,52 +113,101 @@ function correctInput(text){
     if(text.trim().length < 3) return false;
     else return true;
 }
-  
+function Filters()
+{
+    const x = fetch("https://restcountries.com/v3/all")
+    .then(res => res.json())
+    .then(res => res.map(x => {
+    const country = {};
+    country.population = x.population;
+    country.area = x.area;
+    country.capital = x.capital;
+    country.name = x.name;
+    country.currencies = x.currencies;
+    return country;
+    }))
+    .then(res => res.sort((x, y) => {
+    switch(sortBySelect.value){ // wartość wybrana w selekcie
+        case "Nazwa":
+            return y.population - x.population;
+        case "Powierzchnia":
+            return y.area - x.area;
+        case "Stolica":
+            return y.capital - x.capital;
+        case "Nazwa":
+            return y.name - x.name;
+        case "Waluta":
+            return y.currencies - x.currencies;
+    }
+    }))
+    .then(console.log);
+}
+
+
+/*
 function Filters()
 {   
     if (document.getElementById('Filtry').value == "Nazwa") 
     {
-        fetch("https://restcountries.com/v3/all")
+        const x = fetch("https://restcountries.com/v3/all")
         .then(res => res.json())
-        .then(res => res.map(x => x.population))
-        .then(console.log)
+        .then(res => res.map(x => {
+        const country = {};
+        country.nazwa = x.name.common;
+        return country;
+        }))
+        .then(res => res.sort((x, y) => y.nazwa-x.nazwa))
+        .then(console.log);
     }
     if (document.getElementById('Filtry').value == "Stolica") 
     {
-        fetch("https://restcountries.com/v3/all")
+        const x = fetch("https://restcountries.com/v3/all")
         .then(res => res.json())
-        .then(res => res.map(x => x.population))
-        .then(console.log)
+        .then(res => res.map(x => {
+            const country = {};
+            country.stolica = x.capital[0];
+            return country;
+            }))
+            .then(res => res.sort((x, y) => y.stolica-x.stolica))
+            .then(console.log);
     }
     if (document.getElementById('Filtry').value == "Powierzchnia") 
     {
-        fetch("https://restcountries.com/v3/all")
+        const x = fetch("https://restcountries.com/v3/all")
         .then(res => res.json())
-        .then(res => res.map(x => x.population))
-        .then(console.log)
+        .then(res => res.map(x => {
+        const country = {};
+        country.powierzchnia = x.area;
+        return country;
+            }))
+            .then(res => res.sort((x, y) => y.powierzchnia-x.powierzchnia))
+            .then(console.log);
     }
     if (document.getElementById('Filtry').value == "Populacja") 
     {
-        fetch("https://restcountries.com/v3/all")
+        const x = fetch("https://restcountries.com/v3/all")
         .then(res => res.json())
-        .then(res => res.map(x => x.population))
-        .then(console.log)
-    }
-    if (document.getElementById('Filtry').value == "Kontynent") 
-    {
-        fetch("https://restcountries.com/v3/all")
-        .then(res => res.json())
-        .then(res => res.map(x => x.population))
-        .then(console.log)
+        .then(res => res.map(x => {
+        const country = {};
+        country.populacja = x.population;
+        return country;
+            }))
+            .then(res => res.sort((x, y) => y.populacja-x.populacja))
+            .then(console.log);
     }
     if (document.getElementById('Filtry').value == "Waluta") 
     {
-        fetch("https://restcountries.com/v3/all")
+        const x = fetch("https://restcountries.com/v3/all")
         .then(res => res.json())
-        .then(res => res.map(x => x.population))
-        .then(console.log)
+        .then(res => res.map(x => {
+        const country = {};
+        country.waluta = x.Object.entries(res.currencies)[0][1].name;
+        return country;
+            }))
+            .then(res => res.sort((x, y) => y.waluta-x.waluta))
+            .then(console.log);
     }
     
 }
 
-
+*/
