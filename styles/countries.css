@@ -1,0 +1,19 @@
+div#country-search, div#country-info, div#country-flag{
+    background-color: #787CB5;
+    padding: 20px;
+}
+div#country-info{
+    font-size: 20px;
+}
+label{
+    margin: 0px;
+    display: inline;
+}
+input[type=button]{
+    background-color: #B0B3D6;
+    padding: 0px 15px;
+    border: none;
+}
+input[type=button]:hover{
+    cursor: pointer;
+}
