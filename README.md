@@ -16,23 +16,23 @@
         + (0.25 pkt) Nazwa państwa
         + (0.25 pkt) Populacja
     + (2 pkt) Państwa można sortować według innych kryteriów
-        + (1 pkt) Aplikacja ma możliwość wyświetlenia kolejnych 8 państw
-        + (1 pkt) Aplikacja na początkowej stronie powinna wyświetlić panel do wyszukania państw
-        + (1 pkt) Po zatwierdzeniu przyciskiem nazwy państwa, powinno wyświetlić informacje o państwie
-        + (4 pkt) Każde z pobranych państw przez wyszukiwania powininno zawierać informacje:
-            + (1.5 pkt) Flaga
-            + (0.25 pkt) Nazwa
-            + (0.25 pkt) Oficjalna nazwa
-            + (0.25 pkt) Stolica
-            + (0.25 pkt) Powierzchnia
-            + (0.25 pkt) Populacja
-            + (0.25 pkt) Kontynent
-            + (0.25 pkt) Waluta
-            + (0.25 pkt) Symbol waluty
-            + (0.25 pkt) Kod samochodu
-            + (0.25 pkt) Link Google Maps
-        + (2 pkt) Dodanie statystyk
-        + (2 pkt) Dodanie polubienia dla kraju
+    + (1 pkt) Aplikacja ma możliwość wyświetlenia kolejnych 8 państw
+    + (1 pkt) Aplikacja na początkowej stronie powinna wyświetlić panel do wyszukania państw
+    + (1 pkt) Po zatwierdzeniu przyciskiem nazwy państwa, powinno wyświetlić informacje o państwie
+    + (4 pkt) Każde z pobranych państw przez wyszukiwania powininno zawierać informacje:
+        + (1.5 pkt) Flaga
+        + (0.25 pkt) Nazwa
+        + (0.25 pkt) Oficjalna nazwa
+        + (0.25 pkt) Stolica
+        + (0.25 pkt) Powierzchnia
+        + (0.25 pkt) Populacja
+        + (0.25 pkt) Kontynent
+        + (0.25 pkt) Waluta
+        + (0.25 pkt) Symbol waluty
+        + (0.25 pkt) Kod samochodu
+        + (0.25 pkt) Link Google Maps
+    + (2 pkt) Dodanie statystyk
+    + (2 pkt) Dodanie polubienia dla kraju
 3. (7 pkt) Styl aplikacji 
     + (2 pkt) Użycie frameworka CSS np. Bootstrap lub czystego CSS
     + (1 pkt) Funkcjonalne ułożenie elementów aplikacji
