@@ -8,6 +8,8 @@
     <meta name="keywords" content="Zadanie, HTML, CSS, JavaScript">
     <title>PHP Enjoyers</title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/countries.css">
+    <script type="text/javascript" src="scripts/countries.js"></script>
 </head>
 <body>
     <header>
@@ -22,8 +24,20 @@
     </nav>
     <section>
         <article>
-            <h2>O Nas</h2>
-            <p>Jesteśmy grupą profesjonalistów w dziedzinie PHP i C++.</p>
+            <h2>Informacje o państwie</h2>
+            <div id="country-search">
+                <form name="countrySearch" onsubmit="return false">
+                    <label for="countryName">Nazwa państwa:</label>
+                    <input type="text" name="countryName">
+                    <input type="button" value="Szukaj" onclick="getCountryData()">
+                </form>
+            </div>
+        </article>
+        <article>
+            <div id="country-info"></div>
+        </article>
+        <article>
+            <div id="country-flag"></div>
         </article>
     </section>
     <footer>&copy; PHP Enjoyers</footer>
