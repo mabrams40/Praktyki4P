@@ -45,6 +45,14 @@ function getCountryData(){
             "flag": res.flags[1] //field
         };
 
+
+function currencyFormatDE(num) 
+{
+    return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'))
+  }
+
+  country.population = currencyFormatDE(country.population)
+
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
         addInfoRow(`Stolica: ${country.capital}`);
