@@ -9,12 +9,12 @@
 2. (17 pkt) Uwzględnienie wymagań z uwzględnieniem sytuacji wyjątkowych:
     + (1 pkt) Na początku aplikacja powinna pobrać z serwisu dane wszystkich państw
     + (1 pkt) Wyświetlenie danych 8 państw
-    + (1 pkt) Państwa domyślnie mają być posortowane malejąco względem populacji
+    + (1 pkt) Państwa domyślnie mają być posortowane malejąco względem wybranego wskaźnika
     + (1 pkt) Dane o państwie to:
         + (0.25 pkt) Miejsce w rankingu
         + (0.25 pkt) Ikona flagi państwa
         + (0.25 pkt) Nazwa państwa
-        + (0.25 pkt) Populacja
+        + (0.25 pkt) Wskaźnik
     + (2 pkt) Państwa można sortować według innych kryteriów
     + (1 pkt) Aplikacja ma możliwość wyświetlenia kolejnych 8 państw
     + (1 pkt) Aplikacja na początkowej stronie powinna wyświetlić panel do wyszukania państw
