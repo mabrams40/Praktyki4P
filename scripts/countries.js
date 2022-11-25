@@ -10,6 +10,8 @@ window.onload = () => {
     countryInfo.style.display = "none";
     const countryFlag = document.getElementById("country-flag");
     countryFlag.style.display = "none";
+    const favouriteList = document.getElementById("favourite-list");
+    favouriteList.style.display = "none";
 }
 
 function formatNumber(num) 
@@ -47,7 +49,8 @@ function getCountryData(){
             "currencySign": Object.entries(res.currencies)[0][1].symbol, //array
             "carCode": res.car.signs[0], //array
             "googleMaps": res.maps.googleMaps, //field
-            "flag": res.flags[1] //field
+            "flag": res.flags[1], //field
+            "flagIcon": res.flag //field
         };
 
         country.population = formatNumber(country.population)
@@ -62,6 +65,7 @@ function getCountryData(){
         addInfoRow(`Waluta: ${country.currency} (${country.currencySign})`);
         addInfoRow(`Kod samochodu: ${country.carCode}`);
         addAnchorRow(`Google Maps: `, country.googleMaps);
+        addLikeButton(`♥ Do ulubionych`, country);
         addFlag(country.flag);
 
         return true;
@@ -85,6 +89,26 @@ function addAnchorRow(text, href){
     anchor.innerText = "link";
     anchor.target = "_blank";
     div.appendChild(anchor);
+    container.appendChild(div);
+}
+
+function addLikeButton(text, country){
+    const container = document.getElementById("country-info");
+    const btn = document.createElement("input");
+    btn.type = "button";
+    btn.value = text;
+    btn.onclick = () => {
+        likeCountry(country);
+        btn.disabled = true;
+    };
+    container.appendChild(btn);
+}
+
+function likeCountry(country){
+    const container = document.getElementById("favourite-list");
+    container.style.display = "block";
+    const div = document.createElement("div");
+    div.innerText = `${country.flagIcon} ${country.name} (${country.officialName})`;
     container.appendChild(div);
 }
 
