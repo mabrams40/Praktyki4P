@@ -1,3 +1,7 @@
+div#main-content{
+    background-color: #B0B3D6;
+    display: flow-root;
+}
 section{
     float: left;
 }
