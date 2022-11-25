@@ -14,7 +14,7 @@ window.onload = () => {
 
 function formatNumber(num) 
 {
-    return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+    return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
 }
 
 function getCountryData(){
@@ -50,8 +50,8 @@ function getCountryData(){
             "flag": res.flags[1] //field
         };
 
-        country.population = numbersformat(country.population)
-        country.area = numbersformat(country.area)
+        country.population = formatNumber(country.population)
+        country.area = formatNumber(country.area)
 
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
