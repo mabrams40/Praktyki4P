@@ -1,3 +1,6 @@
+section{
+    float: left;
+}
 div#country-search, div#country-info, div#country-flag{
     background-color: #787CB5;
     padding: 20px;
@@ -16,4 +19,7 @@ input[type=button]{
 }
 input[type=button]:hover{
     cursor: pointer;
+}
+footer{
+    clear: both;
 }
