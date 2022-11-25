@@ -24,6 +24,23 @@
     </nav>
     <section>
         <article>
+            <h2>Ranking państw</h2>
+            <div id="country-search">
+                <label>Według:</label>
+                <select id="filter">
+                    <option value="populacja">populacja</option>
+                    <option value="powierzchnia">powierzchnia</option>
+                    <!-- <option value="nazwa">nazwa</option>
+                    <option value="nazwa oficjalna">nazwa oficjalna</option>
+                    <option value="stolica">stolica</option>
+                    <option value="waluta">waluta</option> -->
+                    <br><input type="button" value="Szukaj" onclick="getAllCountryData()">
+                  </select>  
+            </div>          
+        </article>
+    </section>
+    <section>
+        <article>
             <h2>Informacje o państwie</h2>
             <div id="country-search">
                 <form name="countrySearch" onsubmit="return false">
@@ -41,5 +58,6 @@
         </article>
     </section>
     <footer>&copy; PHP Enjoyers</footer>
+    
 </body>
 </html>

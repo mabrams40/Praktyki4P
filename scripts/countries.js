@@ -12,6 +12,11 @@ window.onload = () => {
     countryFlag.style.display = "none";
 }
 
+function formatNumber(num) 
+{
+    return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+}
+
 function getCountryData(){
     let countryNameInput = countrySearch.countryName.value;
     countrySearch.countryName.value = "";
@@ -44,6 +49,9 @@ function getCountryData(){
             "googleMaps": res.maps.googleMaps, //field
             "flag": res.flags[1] //field
         };
+
+        country.population = numbersformat(country.population)
+        country.area = numbersformat(country.area)
 
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
@@ -102,4 +110,48 @@ function addFlag(url){
 function correctInput(text){
     if(text.trim().length < 3) return false;
     else return true;
+}
+
+function getAllCountryData()
+{
+    const sortBySelect = document.getElementById("filter");
+
+    fetch("https://restcountries.com/v3/all")
+    .then(res => res.json())
+    .then(res => res.map(x => {
+        const country = {};
+        country.population = x.population;
+        country.area = x.area;
+        country.name = x.name.common;
+        country.officialName = x.name.official;
+        try{ // Antarctica doesn't have any capital
+            country.capital = x.capital[0];
+        } catch (error){
+            country.capital = "none";
+        };
+        try{ // Antarctica doesn't have any currency
+            country.currency = Object.entries(x.currencies)[0][1].name;
+        } catch (error){
+            country.currency = "none";
+        };
+        return country;
+    }))
+    .then(res => res.sort((x, y) => {
+        switch(sortBySelect.value){
+            case "populacja":
+                return y.population - x.population;
+            case "powierzchnia":
+                return y.area - x.area;
+            // Sorting text values is different
+            // case "nazwa":
+            //     return y.name - x.name;
+            // case "nazwa oficjalna":
+            //     return y.officialName - x.officialName;
+            // case "stolica":
+            //     return y.capital - x.capital;
+            // case "waluta":
+            //     return y.currencies - x.currencies;
+        }
+    }))
+    .then(console.log);
 }
