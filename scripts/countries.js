@@ -158,14 +158,37 @@ function getAllCountryData()
         } catch (error){
             country.currency = "none";
         };
+        // var div1 = document.getElementById('country1');
+        // var div2 = document.getElementById('country2');
+        // var div3 = document.getElementById('country3');
+        // var div4 = document.getElementById('country4');
+        // var div5 = document.getElementById('country5');
+        // var div6 = document.getElementById('country6');
+        // var div7 = document.getElementById('country7');
+        // var div8 = document.getElementById('country8');
+        // div1.innerHTML = country.name+" "+country.population[0]
+        // div2.innerHTML = country.name+" "+country.population[1]
+        // div3.innerHTML = country.name+" "+country.population[2]
+        // div4.innerHTML = country.name+" "+country.population[3]
+        // div5.innerHTML = country.name+" "+country.population[4]
+        // div6.innerHTML = country.name+" "+country.population[5]
+        // div7.innerHTML = country.name+" "+country.population[6]
+        // div8.innerHTML = country.name+" "+country.population[7]
         return country;
     }))
     .then(res => res.sort((x, y) => {
+        
         switch(sortBySelect.value){
             case "populacja":
-                return y.population - x.population;
+                {
+                    y.population - x.population;
+                    //for(let i=0; i<8; i++)
+                    //{
+                        
+                    //}
+                }
             case "powierzchnia":
-                return y.area - x.area;
+                y.area - x.area;
             // Sorting text values is different
             // case "nazwa":
             //     return y.name - x.name;
@@ -176,6 +199,8 @@ function getAllCountryData()
             // case "waluta":
             //     return y.currencies - x.currencies;
         }
+        
+        
+                
     }))
-    .then(console.log);
 }
