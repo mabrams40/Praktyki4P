@@ -73,6 +73,60 @@ function getCountryData(){
     .catch(console.error);
 }
 
+function getCountryData2(a){
+    let countryNameInput = a;
+    countrySearch.countryName.value = "";
+    if(!correctInput(countryNameInput)) return;
+
+    fetch(`https://restcountries.com/v3/name/${countryNameInput}`)
+    .then(res => {
+        if(!res.ok){
+            alert("Country not found.");
+            throw new Error(res.statusText);
+        }
+        return res.json();
+    })
+    .then(res => res[0])
+    .then(res => {
+        const container = document.getElementById("country-info");
+        container.style.display = "block";
+        container.innerHTML = "";
+
+        const country = {
+            "name" : res.name.common, //field
+            "officialName" : res.name.official, //field
+            "capital" : res.capital[0], //array
+            "area": res.area, //field
+            "population" : res.population, //field
+            "continent": res.continents[0], //array
+            "currency": Object.entries(res.currencies)[0][1].name, //array
+            "currencySign": Object.entries(res.currencies)[0][1].symbol, //array
+            "carCode": res.car.signs[0], //array
+            "googleMaps": res.maps.googleMaps, //field
+            "flag": res.flags[1], //field
+            "flagIcon": res.flag //field
+        };
+
+        country.population = formatNumber(country.population)
+        country.area = formatNumber(country.area)
+
+        addInfoRow(`Nazwa państwa: ${country.name}`);
+        addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
+        addInfoRow(`Stolica: ${country.capital}`);
+        addInfoRow(`Powierzchnia: ${country.area} km^2`);
+        addInfoRow(`Populacja: ${country.population} osób`);
+        addInfoRow(`Kontynent: ${country.continent}`);
+        addInfoRow(`Waluta: ${country.currency} (${country.currencySign})`);
+        addInfoRow(`Kod samochodu: ${country.carCode}`);
+        addAnchorRow(`Google Maps: `, country.googleMaps);
+        addLikeButton(`♥ Do ulubionych`, country);
+        addFlag(country.flag);
+
+        return true;
+    })
+    .catch(console.error);
+}
+
 function addInfoRow(text){
     const container = document.getElementById("country-info");
     const div = document.createElement("div");
@@ -111,6 +165,32 @@ function likeCountry(country){
     div.innerText = `${country.flagIcon} ${country.name} (${country.officialName})`;
     container.appendChild(div);
 }
+    
+function searchCountry(b,a){
+        const container = document.getElementById("panstwa");
+        const btn = document.createElement("input");
+        const br = document.createElement("br");
+        btn.type = "button";
+        btn.value = ` ${b} (${a})`;
+        btn.onclick = () => {
+            getCountryData2(b);
+        }
+        container.appendChild(btn);
+        container.appendChild(br);
+    }
+
+    // function searchCountry2(country,a){
+    //     const container = document.getElementById("panstwa");
+    //     const btn = document.createElement("input");
+    //     const br = document.createElement("br");
+    //     btn.type = "button";
+    //     btn.value = ` ${country.name} (${a})`;
+    //     btn.onclick = () => {
+    //         getCountryData2(country.name);
+    //     }
+    //     container.appendChild(btn);
+    //     container.appendChild(br);
+    // }
 
 function addFlag(url){
     fetch(url)
@@ -158,37 +238,15 @@ function getAllCountryData()
         } catch (error){
             country.currency = "none";
         };
-        // var div1 = document.getElementById('country1');
-        // var div2 = document.getElementById('country2');
-        // var div3 = document.getElementById('country3');
-        // var div4 = document.getElementById('country4');
-        // var div5 = document.getElementById('country5');
-        // var div6 = document.getElementById('country6');
-        // var div7 = document.getElementById('country7');
-        // var div8 = document.getElementById('country8');
-        // div1.innerHTML = country.name+" "+country.population[0]
-        // div2.innerHTML = country.name+" "+country.population[1]
-        // div3.innerHTML = country.name+" "+country.population[2]
-        // div4.innerHTML = country.name+" "+country.population[3]
-        // div5.innerHTML = country.name+" "+country.population[4]
-        // div6.innerHTML = country.name+" "+country.population[5]
-        // div7.innerHTML = country.name+" "+country.population[6]
-        // div8.innerHTML = country.name+" "+country.population[7]
         return country;
     }))
     .then(res => res.sort((x, y) => {
         
         switch(sortBySelect.value){
             case "populacja":
-                {
-                    y.population - x.population;
-                    //for(let i=0; i<8; i++)
-                    //{
-                        
-                    //}
-                }
+                return y.population - x.population;
             case "powierzchnia":
-                y.area - x.area;
+                return y.area - x.area;
             // Sorting text values is different
             // case "nazwa":
             //     return y.name - x.name;
@@ -198,9 +256,18 @@ function getAllCountryData()
             //     return y.capital - x.capital;
             // case "waluta":
             //     return y.currencies - x.currencies;
-        }
-        
-        
-                
+        }           
     }))
+    .then(res => res.map(x => {
+        const sortBySelect = document.getElementById("filter");
+        //x.population = Array.from(x.population).slice(0,8)
+        switch(sortBySelect.value){
+            case "populacja":
+                searchCountry(x.name,x.population) 
+                break
+            case "powierzchnia":
+                searchCountry(x.name,x.area)
+                break
+        }      
+    }));
 }
