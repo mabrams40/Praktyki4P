@@ -168,13 +168,13 @@ function likeCountry(country){
     container.appendChild(div);
 }
     
-function searchCountry(name, indicator){
+function searchCountry(rankPlace, name, indicator){
     const container = document.getElementById("country-list");
     const div = document.createElement("div");
     if(typeof indicator === "number"){
         indicator = formatNumber(indicator);
     }
-    div.innerText = ` ${name} (${indicator})`;
+    div.innerText = `${rankPlace}. ${name} (${indicator})`;
     div.onclick = () => {
         getCountryData2(name);
     }
@@ -262,10 +262,10 @@ function displayCountries(){
         for(let i=count; i<count+el; i++){
             switch(sortBySelect.value){
                 case "populacja":
-                    searchCountry(res[i].name, res[i].population);
+                    searchCountry(i+1, res[i].name, res[i].population);
                     break;
                 case "powierzchnia":
-                    searchCountry(res[i].name, res[i].area);
+                    searchCountry(i+1, res[i].name, res[i].area);
                     break;
             }
         }
