@@ -45,6 +45,7 @@ function getCountryData(){
             "officialName" : res.name.official, //field
             "area": res.area, //field
             "population" : res.population, //field
+            "density": Math.round(res.population/res.area),
             "continent": res.continents[0], //array
             "carCode": res.car.signs[0], //array
             "googleMaps": res.maps.googleMaps, //field
@@ -66,12 +67,14 @@ function getCountryData(){
 
         country.population = formatNumber(country.population)
         country.area = formatNumber(country.area)
+        country.density = formatNumber(country.density)
 
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
         addInfoRow(`Stolica: ${country.capital}`);
         addInfoRow(`Powierzchnia: ${country.area} km^2`);
         addInfoRow(`Populacja: ${country.population} osób`);
+        addInfoRow(`Gęstość zaludnienia: ${country.density} osób/km^2`);
         addInfoRow(`Kontynent: ${country.continent}`);
         addInfoRow(`Waluta: ${country.currency} (${country.currencySign})`);
         addInfoRow(`Kod samochodu: ${country.carCode}`);
@@ -108,6 +111,7 @@ function getCountryData2(a){
             "officialName" : res.name.official, //field
             "area": res.area, //field
             "population" : res.population, //field
+            "density": Math.round(res.population/res.area),
             "continent": res.continents[0], //array
             "carCode": res.car.signs[0], //array
             "googleMaps": res.maps.googleMaps, //field
@@ -129,12 +133,14 @@ function getCountryData2(a){
 
         country.population = formatNumber(country.population)
         country.area = formatNumber(country.area)
+        country.density = formatNumber(country.density)
 
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
         addInfoRow(`Stolica: ${country.capital}`);
         addInfoRow(`Powierzchnia: ${country.area} km^2`);
         addInfoRow(`Populacja: ${country.population} osób`);
+        addInfoRow(`Gęstość zaludnienia: ${country.density} osób/km^2`);
         addInfoRow(`Kontynent: ${country.continent}`);
         addInfoRow(`Waluta: ${country.currency} (${country.currencySign})`);
         addInfoRow(`Kod samochodu: ${country.carCode}`);
@@ -241,6 +247,7 @@ function getAllCountryData()
         const country = {};
         country.population = x.population;
         country.area = x.area;
+        country.density = Math.round(x.population/x.area);
         country.name = x.name.common;
         country.officialName = x.name.official;
         try{
@@ -261,6 +268,8 @@ function getAllCountryData()
                 return y.population - x.population;
             case "powierzchnia":
                 return y.area - x.area;
+            case "gęstość zaludnienia":
+                return y.density - x.density;
             // Sorting text values is different
             // case "nazwa":
             //     return y.name - x.name;
@@ -290,6 +299,9 @@ function displayCountries(){
                     break;
                 case "powierzchnia":
                     searchCountry(i+1, res[i].name, res[i].area);
+                    break;
+                case "gęstość zaludnienia":
+                    searchCountry(i+1, res[i].name, res[i].density);
                     break;
             }
         }
