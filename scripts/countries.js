@@ -21,16 +21,12 @@ function formatNumber(num)
     return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
 }
 
-function getCountryData(a){
-    let countryNameInput = a;   
-    if(countryNameInput == "china" || countryNameInput == "China") 
-    {
-        countryNameInput="People's Republic of China"
-    }
+function getCountryData(countryName){
     countrySearch.countryName.value = "";
-    if(!correctInput(countryNameInput)) return;
+    console.log(countryName)
+    if(!correctInput(countryName)) return;
 
-    fetch(`https://restcountries.com/v3/name/${countryNameInput}`)
+    fetch(`https://restcountries.com/v3/name/${countryName}`)
     .then(res => {
         if(!res.ok){
             alert("Country not found.");
@@ -130,13 +126,13 @@ function likeCountry(country){
     container.appendChild(div);
 }
     
-function searchCountry(rankPlace, name, indicator){
+function searchCountry(rankPlace, flagIcon, name, indicator){
     const container = document.getElementById("country-list");
     const div = document.createElement("div");
     if(typeof indicator === "number"){
         indicator = formatNumber(indicator);
     }
-    div.innerText = `${rankPlace}. ${name} (${indicator})`;
+    div.innerText = `${rankPlace}. ${flagIcon} ${name} (${indicator})`;
     div.onclick = () => {
         getCountryData(name);
     }
@@ -186,18 +182,8 @@ function getAllCountryData()
         country.population = x.population;
         country.area = x.area;
         country.density = Math.round(x.population/x.area);
+        country.flagIcon = x.flag;
         country.name = x.name.common;
-        country.officialName = x.name.official;
-        try{
-            country.capital = x.capital[0];
-        } catch (error){
-            country.capital = "none";
-        };
-        try{
-            country.currency = Object.entries(x.currencies)[0][1].name;
-        } catch (error){
-            country.currency = "none";
-        };
         return country;
     }))
     .then(res => res.sort((x, y) => {
@@ -208,15 +194,6 @@ function getAllCountryData()
                 return y.area - x.area;
             case "gęstość zaludnienia":
                 return y.density - x.density;
-            // Sorting text values is different
-            // case "nazwa":
-            //     return y.name - x.name;
-            // case "nazwa oficjalna":
-            //     return y.officialName - x.officialName;
-            // case "stolica":
-            //     return y.capital - x.capital;
-            // case "waluta":
-            //     return y.currencies - x.currencies;
         }
     }))
 
@@ -235,13 +212,13 @@ function displayCountries(){
             }
             switch(sortBySelect.value){
                 case "populacja":
-                    searchCountry(i+1, res[i].name, res[i].population);
+                    searchCountry(i+1, res[i].flagIcon, res[i].name, res[i].population);
                     break;
                 case "powierzchnia":
-                    searchCountry(i+1, res[i].name, res[i].area);
+                    searchCountry(i+1, res[i].flagIcon, res[i].name, res[i].area);
                     break;
                 case "gęstość zaludnienia":
-                    searchCountry(i+1, res[i].name, res[i].density);
+                    searchCountry(i+1, res[i].flagIcon, res[i].name, res[i].density);
                     break;
             }
         }
