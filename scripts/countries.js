@@ -159,7 +159,7 @@ function addFlag(url){
 
 function correctInput(text){
     if(text.trim().length < 3) return false;
-    else if(typeof parseInt(text) === "number") return false;
+    else if(!isNaN(parseInt(text))) return false;
     else return true;
 }
 
