@@ -33,7 +33,12 @@ function getCountryData(countryName){
         }
         return res.json();
     })
-    .then(res => res[0])
+    .then(res => {
+        for(let i=0; i<res.length; i++){
+            if((res[i].name.common).toLowerCase() == countryName.toLowerCase()) return res[i];
+        }
+        return res[0];
+    })
     .then(res => {
         const container = document.getElementById("country-info");
         container.style.display = "block";
