@@ -277,7 +277,7 @@ function getAllCountryData()
 function displayCountries(){
     countries.then(res => {
         const sortBySelect = document.getElementById("filter");
-        const el = 100;
+        const el = 8;
         for(let i=count; i<count+el; i++){
             if(i >= res.length){
                 const moreCountries = document.getElementById("more-countries");
