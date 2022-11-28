@@ -3,7 +3,7 @@ window.onload = () => {
     // Submit by pressing Enter
     countryNameInput.addEventListener("keydown", (e) => {
         if(e.key == "Enter"){
-            getCountryData();
+            getCountryData(countryNameInput.value);
         }
     })
     const countryInfo = document.getElementById("country-info");
