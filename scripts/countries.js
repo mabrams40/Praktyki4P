@@ -23,7 +23,6 @@ function formatNumber(num)
 
 function getCountryData(countryName){
     countrySearch.countryName.value = "";
-    console.log(countryName)
     if(!correctInput(countryName)) return;
 
     fetch(`https://restcountries.com/v3/name/${countryName}`)
@@ -160,6 +159,7 @@ function addFlag(url){
 
 function correctInput(text){
     if(text.trim().length < 3) return false;
+    else if(typeof parseInt(text) === "number") return false;
     else return true;
 }
 
