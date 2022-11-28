@@ -224,6 +224,8 @@ function getAllCountryData()
             //     return y.currencies - x.currencies;
         }
     }))
+
+    displayCountries()
 }
 
 function displayCountries(){
