@@ -12,8 +12,8 @@ window.onload = () => {
     countryFlag.style.display = "none";
     const favouriteList = document.getElementById("favourite-list");
     favouriteList.style.display = "none";
-    // const moreCountries = document.getElementById("more-countries");
-    // moreCountries.style.display = "none";
+    const moreCountries = document.getElementById("more-countries");
+    moreCountries.style.display = "none";
 }
 
 function formatNumber(num) 
@@ -43,16 +43,25 @@ function getCountryData(){
         const country = {
             "name" : res.name.common, //field
             "officialName" : res.name.official, //field
-            "capital" : res.capital[0], //array
             "area": res.area, //field
             "population" : res.population, //field
             "continent": res.continents[0], //array
-            "currency": Object.entries(res.currencies)[0][1].name, //array
-            "currencySign": Object.entries(res.currencies)[0][1].symbol, //array
             "carCode": res.car.signs[0], //array
             "googleMaps": res.maps.googleMaps, //field
             "flag": res.flags[1], //field
             "flagIcon": res.flag //field
+        };
+        try{
+            country.capital = res.capital[0]; //array
+        } catch (error){
+            country.capital = "none";
+        };
+        try{
+            country.currency = Object.entries(x.currencies)[0][1].name; //array
+            country.currencySign = Object.entries(x.currencies)[0][1].symbol; //array
+        } catch (error){
+            country.currency = "none";
+            country.currencySign = "none";
         };
 
         country.population = formatNumber(country.population)
@@ -97,16 +106,25 @@ function getCountryData2(a){
         const country = {
             "name" : res.name.common, //field
             "officialName" : res.name.official, //field
-            "capital" : res.capital[0], //array
             "area": res.area, //field
             "population" : res.population, //field
             "continent": res.continents[0], //array
-            "currency": Object.entries(res.currencies)[0][1].name, //array
-            "currencySign": Object.entries(res.currencies)[0][1].symbol, //array
             "carCode": res.car.signs[0], //array
             "googleMaps": res.maps.googleMaps, //field
             "flag": res.flags[1], //field
             "flagIcon": res.flag //field
+        };
+        try{
+            country.capital = res.capital[0]; //array
+        } catch (error){
+            country.capital = "none";
+        };
+        try{
+            country.currency = Object.entries(x.currencies)[0][1].name; //array
+            country.currencySign = Object.entries(x.currencies)[0][1].symbol; //array
+        } catch (error){
+            country.currency = "none";
+            country.currencySign = "none";
         };
 
         country.population = formatNumber(country.population)
@@ -213,8 +231,9 @@ function getAllCountryData()
     const sortBySelect = document.getElementById("filter");
     const countryList = document.getElementById("country-list");
     countryList.innerHTML = "";
-    // const moreCountries = document.getElementById("more-countries");
-    // moreCountries.style.display = "block";
+    const moreCountries = document.getElementById("more-countries");
+    moreCountries.style.display = "block";
+    count = 0;
 
     countries = fetch("https://restcountries.com/v3/all")
     .then(res => res.json())
@@ -224,12 +243,12 @@ function getAllCountryData()
         country.area = x.area;
         country.name = x.name.common;
         country.officialName = x.name.official;
-        try{ // Antarctica doesn't have any capital
+        try{
             country.capital = x.capital[0];
         } catch (error){
             country.capital = "none";
         };
-        try{ // Antarctica doesn't have any currency
+        try{
             country.currency = Object.entries(x.currencies)[0][1].name;
         } catch (error){
             country.currency = "none";
@@ -258,8 +277,13 @@ function getAllCountryData()
 function displayCountries(){
     countries.then(res => {
         const sortBySelect = document.getElementById("filter");
-        const el = 8;
+        const el = 100;
         for(let i=count; i<count+el; i++){
+            if(i >= res.length){
+                const moreCountries = document.getElementById("more-countries");
+                moreCountries.style.display = "none";
+                return;
+            }
             switch(sortBySelect.value){
                 case "populacja":
                     searchCountry(i+1, res[i].name, res[i].population);
