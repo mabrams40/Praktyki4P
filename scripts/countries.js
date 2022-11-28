@@ -62,8 +62,8 @@ function getCountryData(a){
             country.capital = "none";
         };
         try{
-            country.currency = Object.entries(x.currencies)[0][1].name; //array
-            country.currencySign = Object.entries(x.currencies)[0][1].symbol; //array
+            country.currency = Object.entries(res.currencies)[0][1].name; //array
+            country.currencySign = Object.entries(res.currencies)[0][1].symbol; //array
         } catch (error){
             country.currency = "none";
             country.currencySign = "none";
@@ -73,11 +73,6 @@ function getCountryData(a){
         country.area = formatNumber(country.area)
         country.density = formatNumber(country.density)
 
-        if(a == "china" || a == "China") 
-        {
-            country.currency = "yuan(renminbi)";
-            country.currencySign =  "¥";
-        }
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
         addInfoRow(`Stolica: ${country.capital}`);
