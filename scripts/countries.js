@@ -21,12 +21,12 @@ function formatNumber(num)
     return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
 }
 
-function getCountryData2(a){
-    if(a == "china" || a == "China") 
-    {
-        a="People's Republic of China"
-    }
+function getCountryData(a){
     let countryNameInput = a;   
+    if(countryNameInput == "china" || countryNameInput == "China") 
+    {
+        countryNameInput="People's Republic of China"
+    }
     countrySearch.countryName.value = "";
     if(!correctInput(countryNameInput)) return;
 
@@ -73,6 +73,11 @@ function getCountryData2(a){
         country.area = formatNumber(country.area)
         country.density = formatNumber(country.density)
 
+        if(a == "china" || a == "China") 
+        {
+            country.currency = "yuan(renminbi)";
+            country.currencySign =  "¥";
+        }
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
         addInfoRow(`Stolica: ${country.capital}`);
@@ -138,7 +143,7 @@ function searchCountry(rankPlace, name, indicator){
     }
     div.innerText = `${rankPlace}. ${name} (${indicator})`;
     div.onclick = () => {
-        getCountryData2(name);
+        getCountryData(name);
     }
     container.appendChild(div);
 }
