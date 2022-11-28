@@ -22,7 +22,11 @@ function formatNumber(num)
 }
 
 function getCountryData2(a){
-    let countryNameInput = a;
+    if(a == "china" || a == "China") 
+    {
+        a="People's Republic of China"
+    }
+    let countryNameInput = a;   
     countrySearch.countryName.value = "";
     if(!correctInput(countryNameInput)) return;
 
@@ -214,7 +218,7 @@ function getAllCountryData()
             // case "waluta":
             //     return y.currencies - x.currencies;
         }
-    }));
+    }))
 }
 
 function displayCountries(){
