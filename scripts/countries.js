@@ -12,6 +12,8 @@ window.onload = () => {
     countryFlag.style.display = "none";
     const favouriteList = document.getElementById("favourite-list");
     favouriteList.style.display = "none";
+    // const moreCountries = document.getElementById("more-countries");
+    // moreCountries.style.display = "none";
 }
 
 function formatNumber(num) 
@@ -166,31 +168,18 @@ function likeCountry(country){
     container.appendChild(div);
 }
     
-function searchCountry(b,a){
-        const container = document.getElementById("panstwa");
-        const btn = document.createElement("input");
-        const br = document.createElement("br");
-        btn.type = "button";
-        btn.value = ` ${b} (${a})`;
-        btn.onclick = () => {
-            getCountryData2(b);
-        }
-        container.appendChild(btn);
-        container.appendChild(br);
+function searchCountry(name, indicator){
+    const container = document.getElementById("country-list");
+    const div = document.createElement("div");
+    if(typeof indicator === "number"){
+        indicator = formatNumber(indicator);
     }
-
-    // function searchCountry2(country,a){
-    //     const container = document.getElementById("panstwa");
-    //     const btn = document.createElement("input");
-    //     const br = document.createElement("br");
-    //     btn.type = "button";
-    //     btn.value = ` ${country.name} (${a})`;
-    //     btn.onclick = () => {
-    //         getCountryData2(country.name);
-    //     }
-    //     container.appendChild(btn);
-    //     container.appendChild(br);
-    // }
+    div.innerText = ` ${name} (${indicator})`;
+    div.onclick = () => {
+        getCountryData2(name);
+    }
+    container.appendChild(div);
+}
 
 function addFlag(url){
     fetch(url)
@@ -219,6 +208,8 @@ function correctInput(text){
 function getAllCountryData()
 {
     const sortBySelect = document.getElementById("filter");
+    // const moreCountries = document.getElementById("more-countries");
+    // moreCountries.style.display = "block";
 
     fetch("https://restcountries.com/v3/all")
     .then(res => res.json())
@@ -241,7 +232,6 @@ function getAllCountryData()
         return country;
     }))
     .then(res => res.sort((x, y) => {
-        
         switch(sortBySelect.value){
             case "populacja":
                 return y.population - x.population;
@@ -256,18 +246,20 @@ function getAllCountryData()
             //     return y.capital - x.capital;
             // case "waluta":
             //     return y.currencies - x.currencies;
-        }           
+        }
     }))
-    .then(res => res.map(x => {
+    .then(res => {
+        const start=0, stop=8, count=0;
         const sortBySelect = document.getElementById("filter");
-        //x.population = Array.from(x.population).slice(0,8)
-        switch(sortBySelect.value){
-            case "populacja":
-                searchCountry(x.name,x.population) 
-                break
-            case "powierzchnia":
-                searchCountry(x.name,x.area)
-                break
-        }      
-    }));
+        for(let i=start+count; i<stop+count; i++){
+            switch(sortBySelect.value){
+                case "populacja":
+                    searchCountry(res[i].name, res[i].population);
+                    break;
+                case "powierzchnia":
+                    searchCountry(res[i].name, res[i].area);
+                    break;
+            }
+        }
+    });
 }
