@@ -21,8 +21,12 @@ function formatNumber(num)
     return (num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
 }
 
-function getCountryData(){
-    let countryNameInput = countrySearch.countryName.value;
+function getCountryData(a){
+    let countryNameInput = a;   
+    if(countryNameInput == "china" || countryNameInput == "China") 
+    {
+        countryNameInput="People's Republic of China"
+    }
     countrySearch.countryName.value = "";
     if(!correctInput(countryNameInput)) return;
 
@@ -69,72 +73,11 @@ function getCountryData(){
         country.area = formatNumber(country.area)
         country.density = formatNumber(country.density)
 
-        addInfoRow(`Nazwa państwa: ${country.name}`);
-        addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
-        addInfoRow(`Stolica: ${country.capital}`);
-        addInfoRow(`Powierzchnia: ${country.area} km^2`);
-        addInfoRow(`Populacja: ${country.population} osób`);
-        addInfoRow(`Gęstość zaludnienia: ${country.density} osób/km^2`);
-        addInfoRow(`Kontynent: ${country.continent}`);
-        addInfoRow(`Waluta: ${country.currency} (${country.currencySign})`);
-        addInfoRow(`Kod samochodu: ${country.carCode}`);
-        addAnchorRow(`Google Maps: `, country.googleMaps);
-        addLikeButton(`♥ Do ulubionych`, country);
-        addFlag(country.flag);
-
-        return true;
-    })
-    .catch(console.error);
-}
-
-function getCountryData2(a){
-    let countryNameInput = a;
-    countrySearch.countryName.value = "";
-    if(!correctInput(countryNameInput)) return;
-
-    fetch(`https://restcountries.com/v3/name/${countryNameInput}`)
-    .then(res => {
-        if(!res.ok){
-            alert("Country not found.");
-            throw new Error(res.statusText);
+        if(a == "china" || a == "China") 
+        {
+            country.currency = "yuan(renminbi)";
+            country.currencySign =  "¥";
         }
-        return res.json();
-    })
-    .then(res => res[0])
-    .then(res => {
-        const container = document.getElementById("country-info");
-        container.style.display = "block";
-        container.innerHTML = "";
-
-        const country = {
-            "name" : res.name.common, //field
-            "officialName" : res.name.official, //field
-            "area": res.area, //field
-            "population" : res.population, //field
-            "density": Math.round(res.population/res.area),
-            "continent": res.continents[0], //array
-            "carCode": res.car.signs[0], //array
-            "googleMaps": res.maps.googleMaps, //field
-            "flag": res.flags[1], //field
-            "flagIcon": res.flag //field
-        };
-        try{
-            country.capital = res.capital[0]; //array
-        } catch (error){
-            country.capital = "none";
-        };
-        try{
-            country.currency = Object.entries(x.currencies)[0][1].name; //array
-            country.currencySign = Object.entries(x.currencies)[0][1].symbol; //array
-        } catch (error){
-            country.currency = "none";
-            country.currencySign = "none";
-        };
-
-        country.population = formatNumber(country.population)
-        country.area = formatNumber(country.area)
-        country.density = formatNumber(country.density)
-
         addInfoRow(`Nazwa państwa: ${country.name}`);
         addInfoRow(`Oficjalna nazwa: ${country.officialName}`);
         addInfoRow(`Stolica: ${country.capital}`);
@@ -200,7 +143,7 @@ function searchCountry(rankPlace, name, indicator){
     }
     div.innerText = `${rankPlace}. ${name} (${indicator})`;
     div.onclick = () => {
-        getCountryData2(name);
+        getCountryData(name);
     }
     container.appendChild(div);
 }
@@ -280,7 +223,9 @@ function getAllCountryData()
             // case "waluta":
             //     return y.currencies - x.currencies;
         }
-    }));
+    }))
+
+    displayCountries()
 }
 
 function displayCountries(){
