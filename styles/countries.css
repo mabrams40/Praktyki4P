@@ -9,6 +9,20 @@ div#country-search, div#country-info, div#country-flag, div#favourite-list{
     background-color: #787CB5;
     padding: 20px;
 }
+div#country-list div{
+    background-color: #787CB5;
+    font-size: 20px;
+    padding: 10px;
+    margin: 10px 0;
+    width: auto;
+}
+div#country-list div:hover{
+    cursor: pointer;
+}
+input#more-countries{
+    background-color: #787CB5;
+    margin: 10px 0;
+}
 div#favourite-list{
     padding: 10px;
 }
