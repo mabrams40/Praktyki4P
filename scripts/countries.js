@@ -205,13 +205,18 @@ function correctInput(text){
     else return true;
 }
 
+let countries = [];
+let count = 0;
+
 function getAllCountryData()
 {
     const sortBySelect = document.getElementById("filter");
+    const countryList = document.getElementById("country-list");
+    countryList.innerHTML = "";
     // const moreCountries = document.getElementById("more-countries");
     // moreCountries.style.display = "block";
 
-    fetch("https://restcountries.com/v3/all")
+    countries = fetch("https://restcountries.com/v3/all")
     .then(res => res.json())
     .then(res => res.map(x => {
         const country = {};
@@ -247,11 +252,14 @@ function getAllCountryData()
             // case "waluta":
             //     return y.currencies - x.currencies;
         }
-    }))
-    .then(res => {
-        const start=0, stop=8, count=0;
+    }));
+}
+
+function displayCountries(){
+    countries.then(res => {
         const sortBySelect = document.getElementById("filter");
-        for(let i=start+count; i<stop+count; i++){
+        const el = 8;
+        for(let i=count; i<count+el; i++){
             switch(sortBySelect.value){
                 case "populacja":
                     searchCountry(res[i].name, res[i].population);
@@ -261,5 +269,6 @@ function getAllCountryData()
                     break;
             }
         }
-    });
+        count+=el;
+    })
 }
